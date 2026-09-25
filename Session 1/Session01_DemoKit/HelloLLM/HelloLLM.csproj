@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- Works on .NET 8, 9 or 10. Change to net10.0 if that's what you have installed. -->
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>HelloLLM</RootNamespace>
+  </PropertyGroup>
+
+  <!-- No NuGet packages on purpose: Session 1 is "just HttpClient + System.Text.Json". -->
+
+</Project>

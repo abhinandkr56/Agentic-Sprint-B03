@@ -1,0 +1,34 @@
+### Session 01 · Raw LLM call — run this in Visual Studio 2022 (.http files) or VS Code "REST Client"
+### Put your key in an environment variable called GROQ_API_KEY first.
+
+@baseUrl = https://api.groq.com/openai/v1
+@key = {{$processEnv GROQ_API_KEY}}
+
+### 1. Simple chat completion
+POST {{baseUrl}}/chat/completions
+Authorization: Bearer {{key}}
+Content-Type: application/json
+
+{
+  "model": "llama-3.3-70b-versatile",
+  "messages": [
+    { "role": "system", "content": "You are a witty senior .NET developer. Keep answers under 40 words." },
+    { "role": "user", "content": "Explain what an LLM is to a C# developer." }
+  ],
+  "temperature": 0.7
+}
+
+### 2. List the models your key can use
+GET {{baseUrl}}/models
+Authorization: Bearer {{key}}
+
+### 3. Streaming (watch the data: lines arrive)
+POST {{baseUrl}}/chat/completions
+Authorization: Bearer {{key}}
+Content-Type: application/json
+
+{
+  "model": "llama-3.1-8b-instant",
+  "stream": true,
+  "messages": [ { "role": "user", "content": "Count from 1 to 10 in words." } ]
+}
