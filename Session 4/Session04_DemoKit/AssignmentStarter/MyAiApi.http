@@ -1,0 +1,42 @@
+### Session 04 assignment · cloud vs laptop, side by side
+### Terminal A:  dotnet run                                                    → cloud on 5080
+### Terminal B:  dotnet run --AI:Provider=Ollama --urls http://localhost:5081  → laptop on 5081
+### Then click "Send Request" above each block (VS / Rider / VS Code REST Client)
+@cloud = http://localhost:5080
+@local = http://localhost:5081
+
+### Which provider and model is each one running?
+GET {{cloud}}/
+
+###
+GET {{local}}/
+
+### Same question, cloud
+POST {{cloud}}/ask
+Content-Type: application/json
+
+{ "question": "In two sentences: what is the difference between a record and a class in C#?" }
+
+### Same question, laptop (send it twice: the first call is the cold one)
+POST {{local}}/ask
+Content-Type: application/json
+
+{ "question": "In two sentences: what is the difference between a record and a class in C#?" }
+
+### Same ticket, cloud
+POST {{cloud}}/triage
+Content-Type: application/json
+
+{ "text": "UPI payment failed but the money was deducted from my bank account!!" }
+
+### Same ticket, laptop
+POST {{local}}/triage
+Content-Type: application/json
+
+{ "text": "UPI payment failed but the money was deducted from my bank account!!" }
+
+### STRETCH S1 · both answers in one request (after you add /compare)
+POST {{cloud}}/compare
+Content-Type: application/json
+
+{ "question": "What is dependency injection, in one sentence?" }

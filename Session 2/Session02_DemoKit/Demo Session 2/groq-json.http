@@ -1,0 +1,67 @@
+### Session 02 · the three levels of "give me JSON", as raw HTTP
+### Works in Visual Studio / Rider / VS Code REST Client.
+### Set an environment variable GROQ_API_KEY before running.
+
+@baseUrl = https://api.groq.com/openai/v1
+@key = {{$processEnv GROQ_API_KEY}}
+
+### Level 1 · just ask (no guarantee: fences, preambles, drift)
+POST {{baseUrl}}/chat/completions
+Authorization: Bearer {{key}}
+Content-Type: application/json
+
+{
+  "model": "llama-3.3-70b-versatile",
+  "temperature": 0.7,
+  "messages": [
+    { "role": "system", "content": "Classify the support ticket and return JSON with category, priority and sentiment." },
+    { "role": "user", "content": "UPI payment failed but the money was deducted from my bank account!!" }
+  ]
+}
+
+### Level 2 · JSON mode (valid JSON guaranteed, shape NOT guaranteed; prompt must mention JSON)
+POST {{baseUrl}}/chat/completions
+Authorization: Bearer {{key}}
+Content-Type: application/json
+
+{
+  "model": "llama-3.3-70b-versatile",
+  "temperature": 0.2,
+  "response_format": { "type": "json_object" },
+  "messages": [
+    { "role": "system", "content": "Classify the support ticket. Respond with ONLY a JSON object: {\"category\": \"Billing|Bug|HowTo|FeatureRequest|Cancellation\", \"priority\": \"Low|Medium|High\", \"sentiment\": \"Positive|Neutral|Negative\", \"oneLineSummary\": \"...\"}" },
+    { "role": "user", "content": "UPI payment failed but the money was deducted from my bank account!!" }
+  ]
+}
+
+### Level 3 · structured outputs (shape guaranteed by constrained decoding; strict needs a supporting model)
+POST {{baseUrl}}/chat/completions
+Authorization: Bearer {{key}}
+Content-Type: application/json
+
+{
+  "model": "openai/gpt-oss-20b",
+  "reasoning_effort": "low",
+  "messages": [
+    { "role": "system", "content": "Classify the customer support ticket." },
+    { "role": "user", "content": "UPI payment failed but the money was deducted from my bank account!!" }
+  ],
+  "response_format": {
+    "type": "json_schema",
+    "json_schema": {
+      "name": "ticket_triage",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "category":       { "type": "string", "enum": ["Billing", "Bug", "HowTo", "FeatureRequest", "Cancellation"] },
+          "priority":       { "type": "string", "enum": ["Low", "Medium", "High"] },
+          "sentiment":      { "type": "string", "enum": ["Positive", "Neutral", "Negative"] },
+          "oneLineSummary": { "type": "string" }
+        },
+        "required": ["category", "priority", "sentiment", "oneLineSummary"],
+        "additionalProperties": false
+      }
+    }
+  }
+}

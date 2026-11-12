@@ -1,0 +1,26 @@
+### Session 14: your MyAiApi, traced.   dotnet run  → http://localhost:5080    Dashboard → http://localhost:18888
+@api = http://localhost:5080
+
+### Run 1 · a question the notes answer
+POST {{api}}/rag
+Content-Type: application/json
+
+{ "question": "How many requests per minute can I send to our API?" }
+
+### Run 2 · Session 13's failing case: what does its trace look like?
+POST {{api}}/rag
+Content-Type: application/json
+
+{ "question": "Which days do we deploy to production?" }
+
+### Run 3 · a question from chat
+POST {{api}}/rag
+Content-Type: application/json
+
+{ "question": "The site is down. What do I do first?" }
+
+### Stretch S1 · the agent, traced
+POST {{api}}/agent/reply
+Content-Type: application/json
+
+{ "ticket": "Where is my refund for order 4411?" }

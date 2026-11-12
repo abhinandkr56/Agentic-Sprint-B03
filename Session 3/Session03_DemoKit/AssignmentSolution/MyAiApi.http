@@ -1,0 +1,20 @@
+### Session 03 assignment · test requests
+### 1) dotnet run    2) click "Send Request" above each block (VS / Rider / VS Code REST Client)
+@api = http://localhost:5080
+
+### Which provider and model? Is the key set? Is the client ready?
+GET {{api}}/
+
+### TODO 4 · one question, one answer
+POST {{api}}/ask
+Content-Type: application/json
+
+{ "question": "In two sentences: what is the difference between a record and a class in C#?" }
+
+### TODO 5 · your Session 2 task, typed
+POST {{api}}/triage
+Content-Type: application/json
+
+{ "text": "UPI payment failed but the money was deducted from my bank account!!" }
+
+### TODO 6 · run the same three requests again after: dotnet run --AI:Provider=Gemini

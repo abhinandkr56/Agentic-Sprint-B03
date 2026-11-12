@@ -1,0 +1,23 @@
+### Session 11 · Build 5 · ReviewedReplyApi        dotnet run  → http://localhost:5080
+@api = http://localhost:5080
+
+### What can the writer use?
+GET {{api}}/
+
+### T1 · email only: FindOrders → GetOrder → draft → review (should pass)
+POST {{api}}/reply
+Content-Type: application/json
+
+{ "ticket": "I cancelled my plan last week and still no refund!! priya@example.com" }
+
+### T2 · a demand the facts can't back up: watch the reviewer, and the fix round (EDIT 3)
+POST {{api}}/reply
+Content-Type: application/json
+
+{ "ticket": "Order 4413: refund the SMS pack too and confirm it'll be back in my account by Friday." }
+
+### T3 · no order number, no email: the writer should ask; nothing to fact-check
+POST {{api}}/reply
+Content-Type: application/json
+
+{ "ticket": "Hello, where is my refund???" }

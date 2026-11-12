@@ -1,0 +1,42 @@
+### Session 06 assignment · your grounded endpoint
+### dotnet run  → http://localhost:5080      (STRETCH S2: a second one with --AI:Provider=Gemini --urls http://localhost:5081)
+@api = http://localhost:5080
+
+### What is it running? Which table?
+GET {{api}}/
+
+### Plain /ask from Session 3: no notes. Compare its answer with /rag below.
+POST {{api}}/ask
+Content-Type: application/json
+
+{ "question": "How many API calls can I make per minute?" }
+
+### Q1 · answered by one note, in its own words
+POST {{api}}/rag
+Content-Type: application/json
+
+{ "question": "How many API calls can I make per minute?" }
+
+### Q2 · the same kind of question, in DIFFERENT words
+POST {{api}}/rag
+Content-Type: application/json
+
+{ "question": "Our website is down and nobody is answering, who do I wake up?" }
+
+### Q3 · NOT in your notes: you want "I don't know"
+POST {{api}}/rag
+Content-Type: application/json
+
+{ "question": "What is our parental leave policy?" }
+
+### Q4 · needs TWO notes
+POST {{api}}/rag
+Content-Type: application/json
+
+{ "question": "Do I need two approvals to merge a hotfix at night?" }
+
+### Q5 · your choice: another language, a negation, a trick
+POST {{api}}/rag
+Content-Type: application/json
+
+{ "question": "naya laptop kab milega?" }

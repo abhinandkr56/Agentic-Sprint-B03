@@ -1,0 +1,35 @@
+### Session 09 assignment · POST /chat with an MCP server's tools       dotnet run  → http://localhost:5080
+@api = http://localhost:5080
+
+### What can /chat call? (TODO 3)
+GET {{api}}/
+
+### P1 · should use the MCP tool (Learn's docs search)
+POST {{api}}/chat
+Content-Type: application/json
+
+{ "question": "How do I add health checks to an ASP.NET Core app?" }
+
+### P2 · should use a LOCAL tool (Session 7)
+POST {{api}}/chat
+Content-Type: application/json
+
+{ "question": "Who is on call for payments right now?" }
+
+### P3 · should use BOTH: our notes or rota, and the docs
+POST {{api}}/chat
+Content-Type: application/json
+
+{ "question": "Our API keeps returning 429. What's our limit, and how do I add rate limiting in ASP.NET Core?" }
+
+### P4 · should use no tool
+POST {{api}}/chat
+Content-Type: application/json
+
+{ "question": "What does MCP stand for, in one sentence?" }
+
+### S1 · our own MCP server over stdio (stretch)
+POST {{api}}/chat
+Content-Type: application/json
+
+{ "question": "Where is my refund for order 4411?" }

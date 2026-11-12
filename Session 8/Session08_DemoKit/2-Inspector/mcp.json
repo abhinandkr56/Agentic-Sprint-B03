@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "learn": {
+      "type": "http",
+      "url": "https://learn.microsoft.com/api/mcp"
+    },
+    "everything": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-everything@2026.8.31"]
+    },
+    "orders": {
+      "command": "dotnet",
+      "args": ["run", "--project", "5-OrdersServer/Final"]
+    }
+  }
+}

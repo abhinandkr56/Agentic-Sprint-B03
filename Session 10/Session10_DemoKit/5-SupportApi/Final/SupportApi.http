@@ -1,0 +1,35 @@
+### Session 10 · Build 5 · SupportApi        dotnet run  → http://localhost:5080
+@api = http://localhost:5080
+
+### What can the agent use?
+GET {{api}}/
+
+### A ticket with an order number (one step)
+POST {{api}}/reply
+Content-Type: application/json
+
+{ "ticket": "Where is my refund for order 4411? It's been ages." }
+
+### A ticket with only an email (two steps: FindOrders → GetOrder)
+POST {{api}}/reply
+Content-Type: application/json
+
+{ "ticket": "I cancelled my plan last week and still no refund!! priya@example.com" }
+
+### EDIT 3 · a conversation: first message
+POST {{api}}/reply
+Content-Type: application/json
+
+{ "ticket": "Where is my refund for order 4411?", "conversationId": "T-1001" }
+
+### EDIT 3 · same conversation, a follow-up that only makes sense with memory
+POST {{api}}/reply
+Content-Type: application/json
+
+{ "ticket": "Thanks. Which order was that again?", "conversationId": "T-1001" }
+
+### A different conversation: blank memory
+POST {{api}}/reply
+Content-Type: application/json
+
+{ "ticket": "Which order was that again?", "conversationId": "T-2002" }

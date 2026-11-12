@@ -1,0 +1,43 @@
+### Session 12 · Build 5 · ApprovalApi        dotnet run  → http://localhost:5080
+@api = http://localhost:5080
+# Paste the "id" each POST /reply returns here:
+@id = paste-id-here
+
+### T1 · email only: FindOrders → GetOrder → draft → review → (EDIT 1) waits for a person
+POST {{api}}/reply
+Content-Type: application/json
+
+{ "ticket": "I cancelled my plan last week and still no refund!! priya@example.com" }
+
+### What's waiting for a person? (EDIT 1)
+GET {{api}}/approvals
+
+### A1 · APPROVE it: the email goes out (EDIT 2)
+POST {{api}}/approvals/{{id}}
+Content-Type: application/json
+
+{ "approve": true, "by": "asha" }
+
+### A2 · decide the same reply AGAIN: 404, nothing is sent twice (EDIT 2)
+POST {{api}}/approvals/{{id}}
+Content-Type: application/json
+
+{ "approve": true, "by": "asha" }
+
+### T2 · a pushy demand the facts can't back up (paste its id above)
+POST {{api}}/reply
+Content-Type: application/json
+
+{ "ticket": "Order 4413: refund the SMS pack too and confirm it'll be back in my account by Friday. ravi@example.com" }
+
+### A3 · REJECT it: nothing is sent (EDIT 2)
+POST {{api}}/approvals/{{id}}
+Content-Type: application/json
+
+{ "approve": false, "by": "asha" }
+
+### A4 · REJECT WITH A NOTE: the writer rewrites it, and it waits again (EDIT 3). Send T2 first, paste its id.
+POST {{api}}/approvals/{{id}}
+Content-Type: application/json
+
+{ "approve": false, "by": "asha", "note": "Don't promise Friday or a refund. Say a teammate will review the refund request." }

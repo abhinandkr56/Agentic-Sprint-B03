@@ -1,0 +1,20 @@
+### Session 09 · Build 4 · McpApi        dotnet run  → http://localhost:5080
+@api = http://localhost:5080
+
+### Which tools does /chat have right now? (1 → 2 → 3 → same 3, one wrapped)
+GET {{api}}/
+
+### Local tool (Session 7)
+GET {{api}}/chat?q=Who is on call for payments right now?
+
+### EDIT 1 · Learn's docs, over MCP (HTTP)
+GET {{api}}/chat?q=How do I add health checks to an ASP.NET Core app?
+
+### EDIT 2 · our OrdersServer, over MCP (stdio)
+GET {{api}}/chat?q=Where is my refund for order 4411?
+
+### All three sources in one question
+GET {{api}}/chat?q=Order 4411 failed to refund and payments is broken. Who is on call, and where's the refund?
+
+### EDIT 3 · the gate: GetOrder now waits for a human
+GET {{api}}/chat?q=Where is my refund for order 4411?

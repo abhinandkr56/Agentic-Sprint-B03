@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>PromptLab</RootNamespace>
+    <!-- No NuGet packages on purpose: raw HttpClient + System.Text.Json, same as Session 1 -->
+  </PropertyGroup>
+
+</Project>

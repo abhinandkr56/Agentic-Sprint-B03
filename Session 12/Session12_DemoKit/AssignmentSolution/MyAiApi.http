@@ -1,0 +1,43 @@
+### Session 12 assignment · an approval checkpoint before the final action       dotnet run  → http://localhost:5080
+@api = http://localhost:5080
+# Paste the "id" a reviewed-reply returns here:
+@id = paste-id-here
+
+### Session 11's endpoint: tonight it WAITS instead of finishing (R1 · should pass the reviewer)
+POST {{api}}/agent/reviewed-reply
+Content-Type: application/json
+
+{ "ticket": "I cancelled my plan last week and still no refund!! priya@example.com" }
+
+### What's waiting for a person?
+GET {{api}}/agent/approvals
+
+### A1 · APPROVE → "sent" (watch the console: >>> EMAIL SENT <<<)
+POST {{api}}/agent/approvals/{{id}}
+Content-Type: application/json
+
+{ "approve": true, "by": "asha" }
+
+### A3 · the SAME id again → 404. One decision per reply: nothing is sent twice.
+POST {{api}}/agent/approvals/{{id}}
+Content-Type: application/json
+
+{ "approve": true, "by": "asha" }
+
+### R2 · a pushy demand (paste its id above)
+POST {{api}}/agent/reviewed-reply
+Content-Type: application/json
+
+{ "ticket": "Order 4413: refund the SMS pack too and confirm it'll be back in my account by Friday. ravi@example.com" }
+
+### A2 · REJECT → "rejected: not sent" (no EMAIL SENT in the console)
+POST {{api}}/agent/approvals/{{id}}
+Content-Type: application/json
+
+{ "approve": false, "by": "asha" }
+
+### S1 · REJECT WITH A NOTE → rewritten, waiting again under a new id (send R2 again first and paste its id)
+POST {{api}}/agent/approvals/{{id}}
+Content-Type: application/json
+
+{ "approve": false, "by": "asha", "note": "Don't promise Friday or a refund. Say a teammate will review the refund request." }

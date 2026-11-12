@@ -1,0 +1,4 @@
+@api = http://localhost:5080
+
+### Ask the model (Build 1: it has never seen our notes)
+GET {{api}}/ask?q=How many requests per minute can I send to our API?

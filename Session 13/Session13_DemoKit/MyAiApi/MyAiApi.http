@@ -1,0 +1,14 @@
+### Your Session 12 MyAiApi (unchanged). Session 13's evals call /rag and /agent/reply.   dotnet run  → http://localhost:5080
+@api = http://localhost:5080
+
+### /rag (Session 6): the answer + its sources
+POST {{api}}/rag
+Content-Type: application/json
+
+{ "question": "How many requests per minute can I send to our API?" }
+
+### /agent/reply (Session 10): the draft + the tool steps
+POST {{api}}/agent/reply
+Content-Type: application/json
+
+{ "ticket": "Where is my refund for order 4411?" }

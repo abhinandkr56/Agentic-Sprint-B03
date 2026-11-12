@@ -1,0 +1,20 @@
+### Session 06 · Build 5 · RagApi
+### Terminal A:  dotnet run                                                   → Groq on 5080
+### Terminal B:  dotnet run --AI:Provider=Gemini --urls http://localhost:5081  → Gemini on 5081
+@groq = http://localhost:5080
+@gemini = http://localhost:5081
+
+### In the FAQs, different words
+GET {{groq}}/ask?q=money got cut but my order failed
+
+###
+GET {{gemini}}/ask?q=money got cut but my order failed
+
+### Not in the FAQs: expect "I don't know"
+GET {{groq}}/ask?q=Do you offer a student discount?
+
+###
+GET {{gemini}}/ask?q=Do you offer a student discount?
+
+### Half in the FAQs: refunds are covered for annual plans only
+GET {{groq}}/ask?q=Can I get a refund on a monthly plan?

@@ -1,0 +1,28 @@
+@api = http://localhost:5080
+
+### Ask the model (Build 1: it has never seen our notes)
+GET {{api}}/ask?q=How many requests per minute can I send to our API?
+
+### Save our team's notes (Build 3)
+POST {{api}}/notes
+Content-Type: application/json
+
+{ "id": 1, "text": "Our public API allows 100 requests per minute per key." }
+
+###
+POST {{api}}/notes
+Content-Type: application/json
+
+{ "id": 2, "text": "We deploy to production every Thursday at 14:00 IST." }
+
+###
+POST {{api}}/notes
+Content-Type: application/json
+
+{ "id": 3, "text": "If the site is down, page the on-call engineer before anything else." }
+
+### A note from chat
+POST {{api}}/notes
+Content-Type: application/json
+
+{ "id": 4, "text": "Replace me with the note from chat." }

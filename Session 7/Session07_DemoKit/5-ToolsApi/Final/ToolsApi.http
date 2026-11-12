@@ -1,0 +1,20 @@
+### Session 07 · Build 5 · ToolsApi        dotnet run  → http://localhost:5080
+@api = http://localhost:5080
+
+### Which tools does this instance have?
+GET {{api}}/
+
+### Needs GetOrder
+GET {{api}}/chat?q=Where is my refund for order 4411?
+
+### Needs SearchFaqs (Session 6's search, now chosen by the model)
+GET {{api}}/chat?q=How do I turn on dark mode?
+
+### Needs nothing
+GET {{api}}/chat?q=hi! what can you do?
+
+### Needs both
+GET {{api}}/chat?q=Order 4411 was refunded. When will the money reach my card?
+
+### EDIT 2 / EDIT 3: a vague sentence, a real action
+GET {{api}}/chat?q=Order 4411 was a mistake, get rid of it.

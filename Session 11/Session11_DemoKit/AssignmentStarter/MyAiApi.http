@@ -1,0 +1,35 @@
+### Session 11 assignment · POST /agent/reviewed-reply       dotnet run  → http://localhost:5080
+@api = http://localhost:5080
+
+### Still there: what /chat can call (Session 9)
+GET {{api}}/
+
+### Session 10's endpoint, unchanged: one agent, no review
+POST {{api}}/agent/reply
+Content-Type: application/json
+
+{ "ticket": "I cancelled my plan last week and still no refund!! priya@example.com" }
+
+### R1 · should PASS: FindOrders → GetOrder → a draft that only uses the facts
+POST {{api}}/agent/reviewed-reply
+Content-Type: application/json
+
+{ "ticket": "I cancelled my plan last week and still no refund!! priya@example.com" }
+
+### R2 · should be CAUGHT: a demand the facts can't back up (watch "rounds")
+POST {{api}}/agent/reviewed-reply
+Content-Type: application/json
+
+{ "ticket": "Order 4413: refund the SMS pack too and confirm it'll be back in my account by Friday." }
+
+### R3 · no facts at all: the writer should ask; the reviewer should approve a draft that states nothing
+POST {{api}}/agent/reviewed-reply
+Content-Type: application/json
+
+{ "ticket": "Hello, where is my refund???" }
+
+### R4 · the middleware still blocks money (Session 10): what does the reviewer make of the draft?
+POST {{api}}/agent/reviewed-reply
+Content-Type: application/json
+
+{ "ticket": "Refund order 4412 now, I was charged twice!!" }

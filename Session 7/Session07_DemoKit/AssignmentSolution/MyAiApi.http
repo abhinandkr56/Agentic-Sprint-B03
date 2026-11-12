@@ -1,0 +1,41 @@
+### Session 07 assignment · POST /chat with one tool       dotnet run  → http://localhost:5080
+@api = http://localhost:5080
+
+### What is it running?
+GET {{api}}/
+
+### P1 · should call the tool
+POST {{api}}/chat
+Content-Type: application/json
+
+{ "question": "Who is on call for payments right now?" }
+
+### P2 · should call it: different words
+POST {{api}}/chat
+Content-Type: application/json
+
+{ "question": "Payments are failing for every customer. Who do I wake up?" }
+
+### P3 · should call it: different words again
+POST {{api}}/chat
+Content-Type: application/json
+
+{ "question": "I need the mobile team's on-call number" }
+
+### P4 · should NOT call it
+POST {{api}}/chat
+Content-Type: application/json
+
+{ "question": "What does on-call mean, in one sentence?" }
+
+### P5 · missing argument: should ask, not guess
+POST {{api}}/chat
+Content-Type: application/json
+
+{ "question": "Who is on call?" }
+
+### S1 · needs BOTH tools: a note and the rota
+POST {{api}}/chat
+Content-Type: application/json
+
+{ "question": "The site is down. What's the process, and who is on call for platform?" }

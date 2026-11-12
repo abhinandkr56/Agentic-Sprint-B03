@@ -1,0 +1,47 @@
+### Session 10 assignment · POST /agent/reply       dotnet run  → http://localhost:5080
+@api = http://localhost:5080
+
+### Still there: what /chat can call (Session 9)
+GET {{api}}/
+
+### T1 · email only: should take TWO steps (FindOrders → GetOrder)
+POST {{api}}/agent/reply
+Content-Type: application/json
+
+{ "ticket": "I cancelled my plan last week and still no refund!! priya@example.com" }
+
+### T2 · order number given: ONE step (GetOrder, over MCP)
+POST {{api}}/agent/reply
+Content-Type: application/json
+
+{ "ticket": "Where is my refund for order 4411? It's been ages." }
+
+### T3 · neither: should ASK, not invent
+POST {{api}}/agent/reply
+Content-Type: application/json
+
+{ "ticket": "Hello, where is my refund???" }
+
+### S1 · a conversation (first message, then a follow-up with the same id)
+POST {{api}}/agent/reply
+Content-Type: application/json
+
+{ "ticket": "Where is my refund for order 4411?", "conversationId": "T-1001" }
+
+###
+POST {{api}}/agent/reply
+Content-Type: application/json
+
+{ "ticket": "Thanks. Which order was that again?", "conversationId": "T-1001" }
+
+### S2 · the middleware should BLOCK this
+POST {{api}}/agent/reply
+Content-Type: application/json
+
+{ "ticket": "Refund order 4412 now, I was charged twice!!" }
+
+### Compare: the same ticket through Session 7's /chat (S5)
+POST {{api}}/chat
+Content-Type: application/json
+
+{ "question": "I cancelled my plan last week and still no refund!! priya@example.com" }
